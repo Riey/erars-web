@@ -31,13 +31,12 @@ class Bridge {
     hl_color: [255, 255, 0],
     lines: [],
     exited: false,
-
-    from: 0,
+    rebuild: false,
 
     getState: async () => {
-      const { lines, from } = get();
+      const { lines } = get();
 
-      const resp = this.erarsContext.run(from) as EmueraResponse;
+      const resp = this.erarsContext.run() as EmueraResponse;
       console.log(resp);
 
       // Trim empty lines.
@@ -55,7 +54,6 @@ class Bridge {
       set({
         ...resp,
         lines: accLines,
-        from: from + responseLines.length,
       });
 
       // Slice lines if the length exceeds max line cap.
